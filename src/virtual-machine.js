@@ -1083,7 +1083,7 @@ class VirtualMachine extends EventEmitter {
      * @returns {Promise} Promise that resolves when duplicated target has
      *     been added to the runtime.
      */
-    duplicateSprite (targetId) {
+    duplicateSprite(targetId) {
         const target = this.runtime.getTargetById(targetId);
         if (!target) {
             throw new Error('No target with the provided id.');
@@ -1096,8 +1096,10 @@ class VirtualMachine extends EventEmitter {
             this.runtime.addTarget(newTarget);
             newTarget.goBehindOther(target);
             this.setEditingTarget(newTarget.id);
+            this.runtime.emit('SPRITE_DUPLICATED');  // Emit an event after duplication
         });
     }
+    
 
     /**
      * Set the audio engine for the VM/runtime
